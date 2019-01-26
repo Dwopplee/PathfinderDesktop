@@ -45,22 +45,27 @@ int main() {
   using wheel_state_t = coupled::wheel_state;
 
   std::vector<path::augmented_arc2d> curves;
-  std::array<hermite_t::waypoint, 2> wps{hermite_t::waypoint{{0.0, 1.5}, {1.0, 0.0}, {0.0, 0.0}},
-                                         hermite_t::waypoint{{4.5, 2.0}, {0.0, 1.0}, {0.0, 0.0}}};
+  std::array<hermite_t::waypoint, 2> wps{hermite_t::waypoint{{0.0, 1.5},
+                                           {1.0, 0.0}, {0.0, 0.0}},
+                                         hermite_t::waypoint{{4.5, 2.0},
+                                           {0.0, 1.0}, {0.0, 0.0}}};
 
   std::vector<hermite_t> hermites;
-  path::hermite_factory::generate<hermite_t>(wps.begin(), wps.end(), std::back_inserter(hermites),
-                                             hermites.max_size());
+  path::hermite_factory::generate<hermite_t>(wps.begin(), wps.end(), 
+      std::back_inserter(hermites),
+      hermites.max_size());
 
   path::arc_parameterizer param;
   param.configure(0.01, 0.01);
-  param.parameterize(hermites.begin(), hermites.end(), std::back_inserter(curves), curves.max_size());
+  param.parameterize(hermites.begin(), hermites.end(),
+      std::back_inserter(curves), curves.max_size());
 
   profile_t profile;
   // profile.set_timeslice(0.00001);
   double G = 12.75;
 
-  transmission::dc_motor dualCIM{12.0, 5330 * 2.0 * constants::PI / 60.0 / G, 2 * 2.7, 2 * 131.0,
+  transmission::dc_motor dualCIM{12.0, 5330 * 2.0 * constants::PI / 60.0 / G,
+                                 2 * 2.7, 2 * 131.0,
                                  2 * 2.41 * G};
   // coupled_t               model{dualCIM, dualCIM, 0.0762, 0.5, 25.0, 10.0};
   coupled::chassis    chassis{dualCIM, dualCIM, 0.0762, 0.5, 25.0};
@@ -69,18 +74,19 @@ int main() {
   state_t state;
 
   std::ofstream pathfile("ctd.csv");
-  pathfile << "t,x,y,heading,distance,velocity,acceleration,curvature,path,voltage,current\n";
+  pathfile << 
+    "t,x,y,heading,distance,velocity,acceleration,curvature,path,voltage,current\n";
 
   coupled::configuration_state centre{0, 0, 0};
 
-  std::ofstream statecsv("state.csv");
-  statecsv << "time, curvature, dcurvature\n";
-  for (double t = 0; !state.finished && t < 5; t += 0.00505) {
-    state = gen.generate(chassis, curves.begin(), curves.end(), profile, state, t);
+  std::ofstream states("states.csv");
+  for (double t = 0; !state.finished; t += 0.00505) {
+    state = gen.generate(chassis, curves.begin(), curves.end(), profile,
+                         state, t);
     echo(pathfile, state, 0);
 
-    statecsv << state.time << ", " << state.curvature << ", " << state.dcurvature << std::endl;
-    std::cout << "Time, curve, dcurve, : " << state.time << ", " << state.curvature << ", "  << state.dcurvature << std::endl;
+    states << state.time << ", " <<
+                  state.curvature << ", "  << state.dcurvature << std::endl;
 
     echo_limits(pathfile, t, profile.get_limits());
 
@@ -89,8 +95,9 @@ int main() {
     echo_wheel(pathfile, split.second, 2);
 
     double w = (split.second.kinematics[VELOCITY] -
-                split.first.kinematics[VELOCITY]);  // track radius = 0.5, track diam = 1
-    double v = (split.second.kinematics[VELOCITY] + split.first.kinematics[VELOCITY]) / 2.0;
+                split.first.kinematics[VELOCITY]);  // track diam = 1
+    double v = (split.second.kinematics[VELOCITY] +
+                split.first.kinematics[VELOCITY]) / 2.0;
 
     // TODO: Checks
 
