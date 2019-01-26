@@ -1,0 +1,6 @@
+See file:///home/Dwopple/Pathfinder/Pathfinder/build/tmp/compilePathfinderTestLinuxx86-64DebugGoogleTestExePathfinderTestCpp/output.txt for all output for compilePathfinderTestLinuxx86-64DebugGoogleTestExePathfinderTestCpp.
+compiling cdt.cpp failed.
+/home/Dwopple/Pathfinder/Pathfinder/src/test/coupled/cdt.cpp:3:25: fatal error: gtest/gtest.h: No such file or directory
+compilation terminated.
+
+Finished compilePathfinderTestLinuxx86-64DebugGoogleTestExePathfinderTestCpp, see full log file:///home/Dwopple/Pathfinder/Pathfinder/build/tmp/compilePathfinderTestLinuxx86-64DebugGoogleTestExePathfinderTestCpp/output.txt.

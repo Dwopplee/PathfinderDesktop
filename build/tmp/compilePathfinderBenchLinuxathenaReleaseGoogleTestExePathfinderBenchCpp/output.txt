@@ -1,0 +1,26 @@
+See file:///home/Dwopple/Pathfinder/Pathfinder/build/tmp/compilePathfinderBenchLinuxathenaReleaseGoogleTestExePathfinderBenchCpp/output.txt for all output for compilePathfinderBenchLinuxathenaReleaseGoogleTestExePathfinderBenchCpp.
+compiling bench_main.cpp failed.
+/home/Dwopple/Pathfinder/Pathfinder/src/bench/bench_main.cpp:1:33: fatal error: benchmark/benchmark.h: No such file or directory
+ #include "benchmark/benchmark.h"
+                                 ^
+compilation terminated.
+
+compiling bench_arc_param.cpp failed.
+/home/Dwopple/Pathfinder/Pathfinder/src/bench/path/bench_arc_param.cpp:9:33: fatal error: benchmark/benchmark.h: No such file or directory
+ #include <benchmark/benchmark.h>
+                                 ^
+compilation terminated.
+
+compiling bench_trapezoidal.cpp failed.
+/home/Dwopple/Pathfinder/Pathfinder/src/bench/profile/bench_trapezoidal.cpp:3:33: fatal error: benchmark/benchmark.h: No such file or directory
+ #include <benchmark/benchmark.h>
+                                 ^
+compilation terminated.
+
+compiling bench_cdt_fullpipe.cpp failed.
+/home/Dwopple/Pathfinder/Pathfinder/src/bench/coupled/bench_cdt_fullpipe.cpp:10:33: fatal error: benchmark/benchmark.h: No such file or directory
+ #include <benchmark/benchmark.h>
+                                 ^
+compilation terminated.
+
+Finished compilePathfinderBenchLinuxathenaReleaseGoogleTestExePathfinderBenchCpp, see full log file:///home/Dwopple/Pathfinder/Pathfinder/build/tmp/compilePathfinderBenchLinuxathenaReleaseGoogleTestExePathfinderBenchCpp/output.txt.
