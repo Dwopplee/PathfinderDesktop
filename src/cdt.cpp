@@ -68,7 +68,7 @@ int main() {
                                  2 * 2.7, 2 * 131.0,
                                  2 * 2.41 * G};
   // coupled_t               model{dualCIM, dualCIM, 0.0762, 0.5, 25.0, 10.0};
-  coupled::chassis    chassis{dualCIM, dualCIM, 0.0762, 0.5, 25.0};
+  coupled::chassis    chassis{dualCIM, dualCIM, 0.0746, 0.6096, 64.0};
   coupled::causal_trajectory_generator gen;
 
   state_t state;
@@ -84,9 +84,6 @@ int main() {
     state = gen.generate(chassis, curves.begin(), curves.end(), profile,
                          state, t);
     echo(pathfile, state, 0);
-
-    states << state.time << ", " <<
-                  state.curvature << ", "  << state.dcurvature << std::endl;
 
     echo_limits(pathfile, t, profile.get_limits());
 
@@ -106,5 +103,7 @@ int main() {
     centre[1] += v * sin(centre[2]) * 0.01;
 
     echo_simulation(pathfile, t, centre);
-  }
+    states << t << "," << centre[0] << "," << centre[1] << "," << centre[2] << "," << v <<
+      "," << w << "," << std::endl;
+    }
 }
